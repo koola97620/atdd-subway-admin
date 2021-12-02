@@ -149,36 +149,6 @@ public class SectionInsertAcceptanceTest extends AcceptanceTest {
         지하철_노선_구간_실패함(response,"상행역과 하행역 둘중 하나는 노선에 등록되어 있어야 합니다.");
     }
 
-    @DisplayName("두개의 연속된 구간에서 중간역을 제거하면 남은 두 역을 새로운 구간으로 한다.")
-    @Test
-    void deleteInnerStation() {
-
-    }
-
-    @DisplayName("두개의 연속된 구간의 상행 종점역을 제거하면 하나의 구간만 남는다.")
-    @Test
-    void deleteUpStation() {
-
-    }
-
-    @DisplayName("두개의 연속된 구간의 하행 종점역을 제거하면 하나의 구간만 남는다.")
-    @Test
-    void deleteDownStation() {
-
-    }
-
-    @DisplayName("노선에 없는 역을 제거한다")
-    @Test
-    void deleteNotExistsStation() {
-
-    }
-
-    @DisplayName("구간이 하나인 노선에서 역을 제거한다")
-    @Test
-    void deleteStationInOnlyOneSection() {
-
-    }
-
     private void 지하철_노선_구간_실패함(ExtractableResponse<Response> response, String message) {
         assertThat(response.statusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR.value());
         assertThat(response.jsonPath().getObject("message", String.class)).isEqualTo(message);

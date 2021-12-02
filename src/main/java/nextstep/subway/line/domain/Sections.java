@@ -13,6 +13,7 @@ import java.util.Optional;
 
 @Embeddable
 public class Sections {
+    private static final int ONE = 1;
 
     @OneToMany(mappedBy = "line", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Section> sections = new ArrayList<>();
@@ -113,13 +114,19 @@ public class Sections {
             return;
         }
 
-        Section frontSection = sections.stream().filter(it -> it.equalsDownStation(stationId)).findFirst().get();
-        Section backSection = sections.stream().filter(it -> it.equalsUpStation(stationId)).findFirst().get();
+        Section frontSection = sections.stream()
+                .filter(section -> section.equalsDownStation(stationId))
+                .findFirst()
+                .get();
+        Section backSection = sections.stream()
+                .filter(section -> section.equalsUpStation(stationId))
+                .findFirst()
+                .get();
         deleteStationBetweenSections(frontSection, backSection);
     }
 
     private void checkOnlyOneSectionInLine() {
-        if (sections.size() == 1) {
+        if (sections.size() == ONE) {
             throw new ExistsOnlyOneSectionInLine();
         }
     }
@@ -136,7 +143,8 @@ public class Sections {
     }
 
     private boolean notContainsStation(Long stationId) {
-        return getStations().stream().noneMatch(station -> station.getId().equals(stationId));
+        return getStations().stream()
+                .noneMatch(station -> station.equalsStation(stationId));
     }
 
     private void createInnerSection(Section inputSection) {

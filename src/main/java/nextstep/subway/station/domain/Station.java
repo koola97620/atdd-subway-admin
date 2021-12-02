@@ -42,4 +42,8 @@ public class Station extends BaseEntity {
     public String getName() {
         return name;
     }
+
+    public boolean equalsStation(Long stationId) {
+        return id.equals(stationId);
+    }
 }
